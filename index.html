@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Situaciones de Aprendizaje — Herramienta</title>
+<meta name="description" content="Herramienta del módulo IA Generativa en Educación: construye un prompt completo de Situación de Aprendizaje (Infantil y Primaria) para usarlo con cualquier IA.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Herramienta · Bloque 1 (1.8) y Módulo III</div>
+  <h1>Generador de Situaciones de Aprendizaje</h1>
+  <p>Rellena un formulario guiado (Infantil y Primaria) y obtén un <strong>prompt de Nivel 3</strong> listo para pegar en ChatGPT, Gemini o Claude. Funciona en tu navegador: no se envía nada a ningún servidor.</p>
+</header>
+
+<main class="sda">
+
+  <section class="activity">
+    <span class="tag">Cómo se usa</span>
+    <h2>De un formulario a un prompt de calidad</h2>
+    <p>Es la versión «con formulario» de lo que practicamos en el <strong>Bloque 1 (apartado 1.8)</strong>: <em>el mismo prompt, cada vez con más contexto real</em>. Cuanto más concretes el contexto curricular, más útil y menos inventado será el resultado.</p>
+    <ol class="steps">
+      <li><strong>Rellena</strong> los pasos 1 a 6. Todo lo que dejes en «Generado automáticamente por la IA» lo propondrá la IA.</li>
+      <li><strong>Concreción curricular:</strong> pega en tu <em>banco curricular</em> los textos oficiales (competencias específicas, criterios, saberes) de tu comunidad y selecciónalos; así la IA <strong>no los inventa</strong>.</li>
+      <li><strong>Genera</strong> el prompt (paso 7), léelo y ajústalo; cópialo o ábrelo directamente en tu asistente.</li>
+      <li><strong>Revisa</strong> siempre el resultado: códigos, criterios y normativa deben comprobarse con las fuentes oficiales (Bloque 1, 1.5).</li>
+    </ol>
+    <div class="note warn">
+      <strong>Privacidad (Bloque 3, 3.7).</strong> El prompt viaja a la IA que elijas. No incluyas nombres ni datos de alumnado; contextualiza el grupo de forma <em>generalizada</em> («un grupo heterogéneo de 24 alumnos, con apoyos visuales…»). Los botones de ChatGPT y Claude envían el texto del prompt en la dirección web; Gemini se abre vacío y lo pegas tú.
+    </div>
+    <div class="note">
+      <strong>Dónde guarda tus datos:</strong> solo en tu navegador (almacenamiento local). Puedes guardar el formulario y tu banco curricular como archivos <code>.json</code> y cargarlos más tarde. Para probarlo, descarga el <a href="ejemplos/banco-curricular-5-primaria-CMN.json" download>banco curricular de ejemplo</a> (5.º de Primaria, Conocimiento del Medio, Orden de 30 de mayo de 2023) elige «5º Primaria» y «Conocimiento del Medio Natural, Social y Cultural», cambia el paso 4 a «Seleccionar de mi banco curricular» y pulsa «Editar banco curricular» → «Importar banco».
+    </div>
+  </section>
+
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 1 · Identificación</span>
+  <h2>Identificación</h2>
+  <div class="row">
+    <div><label for="etapa">Etapa / curso</label>
+      <select id="etapa">
+        <option value="">Elegir curso</option>
+        <optgroup label="Educación Infantil"><option>Infantil 3 años</option><option>Infantil 4 años</option><option>Infantil 5 años</option></optgroup>
+        <optgroup label="Educación Primaria"><option>1º Primaria</option><option>2º Primaria</option><option>3º Primaria</option><option>4º Primaria</option><option>5º Primaria</option><option>6º Primaria</option></optgroup>
+      </select></div>
+    <div><label for="materia">Área / materia</label>
+      <select id="materia">
+        <option value="">Elegir materia</option>
+        <optgroup label="Infantil"><option>Global (Crecimiento en Armonía; Descubrimiento y Exploración del Entorno; Comunicación y Representación de la Realidad)</option><option>Religión y Moral Católica (Infantil)</option><option>Religión Evangélica (Infantil)</option></optgroup>
+        <optgroup label="Primaria"><option>Lengua Castellana y Literatura</option><option>Matemáticas</option><option>Conocimiento del Medio Natural, Social y Cultural</option><option>Educación Artística</option><option>Inglés (Primera Lengua Extranjera)</option><option>Inglés (Segunda Lengua Extranjera)</option><option>Francés (Primera Lengua Extranjera)</option><option>Francés (Segunda Lengua Extranjera)</option><option>Portugués (Primera Lengua Extranjera)</option><option>Portugués (Segunda Lengua Extranjera)</option><option>Alemán (Primera Lengua Extranjera)</option><option>Alemán (Segunda Lengua Extranjera)</option><option>Italiano (Primera Lengua Extranjera)</option><option>Italiano (Segunda Lengua Extranjera)</option><option>Educación Física</option><option>Globalizada (varias áreas)</option><option>Religión Católica</option><option>Religión Evangélica</option><option>Educación en Valores Cívicos y Éticos</option></optgroup>
+      </select></div>
+    <div><label for="normativa">Normativa de referencia</label>
+      <input type="text" id="normativa" aria-describedby="normHint" value="LOMLOE; Real Decreto 157/2022 (Primaria) / 95/2022 (Infantil); Decreto 101/2023 y Orden de 30 de mayo de 2023 (Andalucía)"><p class="hint" id="normHint">Valor de partida: verifica en el BOE/BOJA que la normativa citada es la vigente para tu etapa y comunidad.</p></div>
+  </div>
+  <label for="tituloModo">Título</label>
+  <select id="tituloModo" data-toggle="titulo"><option value="ia">Generado automáticamente por la IA</option><option value="manual">Introducir manualmente</option></select>
+  <textarea id="titulo" class="hidden" placeholder="Título de la situación de aprendizaje"></textarea>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 2 · Contexto y diversidad</span>
+  <h2>Contexto</h2>
+  <div class="row">
+    <div><label for="localidad">Localidad / centro</label><textarea id="localidad" placeholder="Ej.: CEIP de una localidad del área metropolitana de Granada, entorno semiurbano..."></textarea></div>
+    <div><label for="alumnado">Alumnado</label><textarea id="alumnado" placeholder="Ej.: 24 alumnos/as, grupo heterogéneo, interés por la naturaleza..."></textarea></div>
+  </div>
+  <h3>Atención a la diversidad</h3>
+  <p class="hint warn-hint">Atención a la diversidad: <strong>no escribas nombres ni datos que identifiquen a un alumno</strong>. Describe necesidades de forma generalizada o usa «Alumno A». Ver Bloque 3, apartado 3.7.</p>
+  <label for="programa">Programa específico</label>
+  <textarea id="programa" placeholder="Ej.: programa de refuerzo de la lectoescritura..."></textarea>
+  <div class="btns"><button class="btn ghost sm" data-add="PT">+ Añadir alumno PT</button><button class="btn ghost sm" data-add="AL">+ Añadir alumno AL</button></div>
+  <div id="alumnosNEAE"></div>
+  <label for="acs">Adaptación curricular significativa</label>
+  <textarea id="acs" placeholder="Ej.: 1 alumno con ACS en Matemáticas, nivel de competencia curricular de 2º..."></textarea>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 3 · Justificación y temporalización</span>
+  <h2>Justificación y temporalización</h2>
+  <div class="row">
+    <div><label for="justModo">Justificación</label>
+      <select id="justModo" data-toggle="just"><option value="ia">Generado automáticamente por la IA</option><option value="manual">Introducir manualmente</option></select>
+      <textarea id="just" class="hidden"></textarea></div>
+    <div><label for="tempModo">Temporalización</label>
+      <select id="tempModo" data-toggle="temp"><option value="ia">Generado automáticamente por la IA</option><option value="manual">Introducir manualmente</option></select>
+      <textarea id="temp" class="hidden" placeholder="Ej.: 2.º trimestre, 3 semanas, 9 sesiones de 45 min"></textarea></div>
+  </div>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 4 · Concreción curricular</span>
+  <h2>Concreción curricular</h2>
+  <label for="curModo">Modo</label>
+  <select id="curModo">
+    <option value="ia">Que la IA proponga competencias, criterios y saberes según la normativa</option>
+    <option value="banco">Seleccionar de mi banco curricular</option>
+  </select>
+  <div id="curBanco" class="hidden">
+    <p class="hint" id="curAviso">Selecciona un curso y una materia.</p>
+    <div class="tabs" id="curTabs">
+      <button class="btn ghost sm act" data-tab="competencias">Competencias específicas</button>
+      <button class="btn ghost sm" data-tab="criterios">Criterios de evaluación</button>
+      <button class="btn ghost sm" data-tab="saberes">Saberes básicos</button>
+    </div>
+    <div class="list" id="curLista"></div>
+    <p class="hint" id="curCuenta"></p>
+    <div class="btns"><button class="btn ghost sm" id="btnBanco">Editar banco curricular</button></div>
+  </div>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 5 · Secuenciación didáctica</span>
+  <h2>Secuenciación didáctica</h2>
+  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="contCheck" style="width:auto"> Indicar contenidos / temática</label>
+  <textarea id="contenidos" class="hidden" placeholder="Ej.: los ecosistemas de Sierra Nevada"></textarea>
+  <label for="prodModo">Producto final</label>
+  <select id="prodModo" data-toggle="prod"><option value="ia">Generado automáticamente por la IA</option><option value="manual">Manual</option></select>
+  <textarea id="prod" class="hidden" placeholder="Ej.: guía ilustrada del ecosistema para la biblioteca del centro"></textarea>
+  <h3>Fases de la secuenciación</h3>
+  <div id="fases"></div>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 6 · Evaluación de la práctica docente</span>
+  <h2>Evaluación de la práctica docente</h2>
+  <select id="evalModo" data-toggle="evalCampos"><option value="ia">Generado automáticamente por la IA</option><option value="manual">Manual</option></select>
+  <div id="evalCampos" class="hidden"></div>
+</section>
+
+<section class="activity sda-sec">
+  <span class="tag">Paso 7 · Generar el prompt</span>
+  <h2>Prompt</h2>
+  <label for="extra">Indicaciones adicionales (opcional)</label>
+  <textarea id="extra" placeholder="Ej.: incluye rúbrica con 4 niveles de logro; usa formato de tabla..."></textarea>
+  <div class="btns">
+    <button class="btn" id="btnGen">Generar prompt</button>
+    <button class="btn ghost" id="btnCopy">Copiar</button>
+    <button class="btn amber" id="btnGemini">Copiar y abrir Gemini</button>
+    <button class="btn ghost" id="btnChatGPT">Abrir en ChatGPT</button>
+    <button class="btn ghost" id="btnClaude">Abrir en Claude</button>
+    <button class="btn ghost" id="btnTxt">Descargar .txt</button>
+  </div>
+  <textarea id="salida" placeholder="Pulsa «Generar prompt»"></textarea>
+  <div class="btns">
+    <button class="btn ghost sm" id="btnGuardar">Guardar formulario (.json)</button>
+    <button class="btn ghost sm" id="btnCargar">Cargar formulario</button>
+    <button class="btn ghost sm" id="btnLimpiar">Vaciar formulario</button>
+    <input type="file" id="fileForm" accept=".json" class="hidden">
+  </div>
+</section>
+
+  <section class="activity">
+    <span class="tag">Después de generar</span>
+    <h2>Qué hacer con el resultado</h2>
+    <ul>
+      <li>Compáralo con las fases de una SdA (motivación → activación → exploración → estructuración → aplicación → conclusión).</li>
+      <li>Comprueba que cada criterio de evaluación tiene un <strong>instrumento</strong> asociado (Bloque 2, 2.8: rúbricas).</li>
+      <li>Guarda el prompt que mejor te haya funcionado en tu <strong>biblioteca de prompts</strong> (Bloque 3, 3.5).</li>
+      <li>En Andalucía existe además <strong>SDAconIA</strong> (Junta de Andalucía), que genera un prompt similar para Gemini con acceso corporativo.</li>
+    </ul>
+  </section>
+
+</main>
+
+<dialog id="dlgBanco">
+  <h2>Banco curricular</h2>
+  <p class="hint">Para <b id="bancoClave"></b>. Una línea por elemento con el formato <code>CÓDIGO | descripción</code>. Copia los textos del decreto/orden de tu comunidad. Se guarda en este navegador; también puedes exportarlo o importarlo.</p>
+  <label>Competencias específicas</label><textarea id="bCompetencias" rows="5"></textarea>
+  <label>Criterios de evaluación</label><textarea id="bCriterios" rows="5"></textarea>
+  <label>Saberes básicos</label><textarea id="bSaberes" rows="5"></textarea>
+  <div class="btns">
+    <button class="btn" id="bGuardar">Guardar</button>
+    <button class="btn ghost" id="bExport">Exportar banco completo</button>
+    <button class="btn ghost" id="bImport">Importar banco</button>
+    <button class="btn ghost" id="bCerrar">Cerrar</button>
+    <input type="file" id="fileBanco" accept=".json" class="hidden">
+  </div>
+</dialog>
+<div class="toast" id="toast"></div>
+
+<footer>
+  Herramienta basada en el generador de Situaciones de Aprendizaje de la demo <em>danicruz.22web.org</em> (versión local), adaptada al diseño del módulo.<br>
+  Módulo II: IA Generativa en Educación · Microcredencial "Competencias para el futuro docente" (UGR, 26/MI/173) · Dr. Carlos Fernández Basso
+</footer>
+
+<script>
+
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)};
+
+/* ---------- Fases ---------- */
+const FASES=[
+ ['Motivación','Planteamos el reto o desafío y los objetivos de aprendizaje.'],
+ ['Activación','Conectamos con sus conocimientos previos.'],
+ ['Exploración','Damos oportunidades de éxito ante la propuesta inicial a partir de lo que ya conocen.'],
+ ['Estructuración','Introducimos los nuevos aprendizajes necesarios para realizar el producto final.'],
+ ['Aplicación','Realización del producto o desempeño para responder al reto inicial.'],
+ ['Conclusión','Difusión de resultados. Evaluación del proceso y transferencia de aprendizajes.']];
+$('fases').innerHTML=FASES.map((f,i)=>`<div class="fase"><div class="t">${i+1}. ${f[0].toUpperCase()}</div><div class="d">${f[1]}</div>
+<div class="row"><div><label>Modo</label><select id="f${i}m" data-toggle="f${i}t"><option value="ia">Generado por la IA</option><option value="manual">Manual</option></select></div>
+<div><label>Sesiones</label><input type="number" min="0" id="f${i}s" placeholder="—"></div>
+<div><label>Actividades</label><input type="number" min="0" id="f${i}a" placeholder="—"></div></div>
+<textarea id="f${i}t" class="hidden" placeholder="Describe las actividades de esta fase"></textarea></div>`).join('');
+
+/* ---------- Evaluación docente ---------- */
+const EVAL=['Resultados de la evaluación del área','Métodos didácticos y pedagógicos','Adecuación de los materiales y recursos didácticos','Eficacia de las medidas de atención a la diversidad y a las diferencias individuales','Utilización de instrumentos de evaluación variados, diversos, accesibles y adaptados'];
+$('evalCampos').innerHTML=EVAL.map((e,i)=>`<label for="ev${i}">${e}</label><textarea id="ev${i}"></textarea>`).join('');
+
+/* ---------- Toggles IA/manual ---------- */
+function bindToggles(){document.querySelectorAll('[data-toggle]').forEach(s=>{const f=()=>$(s.dataset.toggle).classList.toggle('hidden',s.value!=='manual');s.onchange=f;f()})}
+bindToggles();
+$('contCheck').onchange=()=>$('contenidos').classList.toggle('hidden',!$('contCheck').checked);
+
+/* ---------- Alumnado NEAE ---------- */
+function addAlumno(tipo,ini='',nec=''){const d=document.createElement('div');d.className='alumno';d.dataset.tipo=tipo;
+ d.innerHTML=`<input type="text" placeholder="Alumno ${tipo} — «Alumno A» (sin nombre ni iniciales reales)" value="${ini.replace(/"/g,'&quot;')}"><input type="text" placeholder="Necesidad / medidas" value="${nec.replace(/"/g,'&quot;')}"><button class="btn ghost sm" type="button">✕</button>`;
+ d.querySelector('button').onclick=()=>d.remove();$('alumnosNEAE').appendChild(d)}
+document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addAlumno(b.dataset.add));
+const alumnos=()=>[...document.querySelectorAll('.alumno')].map(d=>{const i=d.querySelectorAll('input');return{tipo:d.dataset.tipo,ini:i[0].value,nec:i[1].value}});
+
+/* ---------- Banco curricular ---------- */
+let banco=store.get('sda_banco',{});
+let sel=store.get('sda_sel',{});
+let tab='competencias';
+const clave=()=>$('etapa').value&&$('materia').value?$('etapa').value+' · '+$('materia').value:'';
+const parse=t=>(t||'').split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const p=l.split('|');return p.length>1?{c:p[0].trim(),d:p.slice(1).join('|').trim()}:{c:'',d:l}});
+function pintarCur(){
+ const k=clave();$('curModo').value==='banco'?$('curBanco').classList.remove('hidden'):$('curBanco').classList.add('hidden');
+ if(!k){$('curAviso').textContent='Selecciona un curso y una materia.';$('curLista').innerHTML='';$('curCuenta').textContent='';return}
+ const b=banco[k]||{};const items=parse(b[tab]);const s=(sel[k]=sel[k]||{competencias:[],criterios:[],saberes:[]});
+ $('curAviso').textContent=items.length?'Marca los elementos que quieres incluir.':'No hay elementos para '+k+'. Pulsa «Editar banco curricular» para añadirlos.';
+ $('curLista').innerHTML=items.map((it,i)=>{const id=it.c||it.d;return`<label><input type="checkbox" data-id="${encodeURIComponent(id)}" ${s[tab].includes(id)?'checked':''}><span>${it.c?'<code>'+it.c+'</code> ':''}${it.d}</span></label>`}).join('');
+ $('curLista').querySelectorAll('input').forEach(c=>c.onchange=()=>{const id=decodeURIComponent(c.dataset.id);s[tab]=c.checked?[...new Set([...s[tab],id])]:s[tab].filter(x=>x!==id);store.set('sda_sel',sel);cuenta()});
+ cuenta();
+ function cuenta(){$('curCuenta').textContent=`${items.length} elementos (${s[tab].length} seleccionados) · Total seleccionado: ${s.competencias.length} competencias, ${s.criterios.length} criterios, ${s.saberes.length} saberes`}
+}
+['etapa','materia','curModo'].forEach(id=>$(id).addEventListener('change',pintarCur));
+$('curTabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;$('curTabs').querySelectorAll('button').forEach(x=>x.classList.toggle('act',x===b));pintarCur()});
+$('btnBanco').onclick=()=>{const k=clave();if(!k)return toast('Primero elige curso y materia');const b=banco[k]||{};$('bancoClave').textContent=k;$('bCompetencias').value=b.competencias||'';$('bCriterios').value=b.criterios||'';$('bSaberes').value=b.saberes||'';$('dlgBanco').showModal()};
+$('bGuardar').onclick=()=>{banco[clave()]={competencias:$('bCompetencias').value,criterios:$('bCriterios').value,saberes:$('bSaberes').value};store.set('sda_banco',banco);$('dlgBanco').close();pintarCur();toast('Banco guardado')};
+$('bCerrar').onclick=()=>$('dlgBanco').close();
+$('bExport').onclick=()=>descargar('banco-curricular.json',JSON.stringify(banco,null,2),'application/json');
+$('bImport').onclick=()=>$('fileBanco').click();
+$('fileBanco').onchange=e=>leer(e,d=>{banco={...banco,...d};store.set('sda_banco',banco);$('dlgBanco').close();pintarCur();toast('Banco importado')});
+function seleccionCurricular(){const k=clave();const b=banco[k]||{};const s=sel[k]||{competencias:[],criterios:[],saberes:[]};const out={};
+ ['competencias','criterios','saberes'].forEach(t=>{const items=parse(b[t]);out[t]=items.filter(it=>s[t].includes(it.c||it.d)).map(it=>(it.c?it.c+' – ':'')+it.d)});return out}
+
+/* ---------- Prompt ---------- */
+const v=id=>$(id).value.trim();
+const modo=(sid,tid,lbl)=>$(sid).value==='manual'&&v(tid)?v(tid):`[${lbl}: propónlo tú]`;
+function generar(){
+ if(!v('etapa')||!v('materia')){toast('Elige curso y materia');return''}
+ const L=[];
+ L.push(`Actúa como docente experto/a en diseño curricular de ${v('etapa').startsWith('Infantil')?'Educación Infantil':'Educación Primaria'} y en la normativa educativa española. Diseña una SITUACIÓN DE APRENDIZAJE completa, coherente y lista para usar en el aula.`);
+ L.push(`\nNORMATIVA DE REFERENCIA: ${v('normativa')||'LOMLOE y desarrollo autonómico correspondiente'}. Usa la terminología, códigos y elementos curriculares oficiales de esa normativa; no inventes códigos.`);
+ L.push(`\n1. IDENTIFICACIÓN\n- Curso: ${v('etapa')}\n- Área/materia: ${v('materia')}\n- Título: ${modo('tituloModo','titulo','Título atractivo y motivador')}`);
+ L.push(`\n2. CONTEXTO\n- Localidad/centro: ${v('localidad')||'[no especificado: asume un contexto genérico]'}\n- Alumnado: ${v('alumnado')||'[no especificado]'}`);
+ const al=alumnos().filter(a=>a.ini||a.nec);
+ const div=[];if(v('programa'))div.push('- Programa específico: '+v('programa'));al.forEach(a=>div.push(`- Alumno/a ${a.tipo==='PT'?'con atención de Pedagogía Terapéutica (PT)':'con atención de Audición y Lenguaje (AL)'}${a.ini?' ('+a.ini+')':''}: ${a.nec||'necesidades a concretar'}`));if(v('acs'))div.push('- Adaptación curricular significativa: '+v('acs'));
+ L.push(`\n3. ATENCIÓN A LA DIVERSIDAD\n${div.length?div.join('\n'):'- Sin datos específicos.'}\nIncluye medidas generales según los principios del DUA (múltiples formas de implicación, representación y acción/expresión)${div.length?' y medidas concretas para cada caso indicado':''}.`);
+ L.push(`\n4. JUSTIFICACIÓN\n${modo('justModo','just','Justificación: relevancia, vinculación con el entorno, ODS y retos del siglo XXI')}`);
+ L.push(`\n5. TEMPORALIZACIÓN\n${modo('tempModo','temp','Trimestre, número de semanas y sesiones')}`);
+ if($('curModo').value==='banco'&&clave()){const s=seleccionCurricular();
+  L.push(`\n6. CONCRECIÓN CURRICULAR (usa exactamente estos elementos)\nCompetencias específicas:\n${s.competencias.map(x=>'- '+x).join('\n')||'- [propónlas tú]'}\nCriterios de evaluación:\n${s.criterios.map(x=>'- '+x).join('\n')||'- [propónlos tú, vinculados a las competencias]'}\nSaberes básicos:\n${s.saberes.map(x=>'- '+x).join('\n')||'- [propónlos tú]'}\nIndica además los descriptores operativos del Perfil de salida/competencias clave relacionados.`);
+ } else L.push(`\n6. CONCRECIÓN CURRICULAR\nSelecciona de la normativa indicada las competencias específicas, los criterios de evaluación y los saberes básicos del curso y área (con sus códigos oficiales), y relaciónalos con los descriptores operativos de las competencias clave. Preséntalo en tabla.`);
+ L.push(`\n7. SECUENCIACIÓN DIDÁCTICA`);
+ if($('contCheck').checked&&v('contenidos'))L.push(`- Contenidos/temática: ${v('contenidos')}`);
+ L.push(`- Producto final: ${modo('prodModo','prod','Producto final relevante y socialmente útil')}`);
+ L.push(`- Fases (para cada actividad indica: título, descripción, agrupamiento, recursos, espacios, procesos cognitivos, criterios de evaluación vinculados e instrumento de evaluación):`);
+ FASES.forEach((f,i)=>{const s=v('f'+i+'s'),a=v('f'+i+'a');const extra=[s&&s+' sesión(es)',a&&a+' actividad(es)'].filter(Boolean).join(', ');
+  L.push(`  ${i+1}. ${f[0].toUpperCase()} (${f[1]})${extra?' – '+extra:''}${$('f'+i+'m').value==='manual'&&v('f'+i+'t')?'\n     Actividades indicadas por el docente: '+v('f'+i+'t'):''}`)});
+ L.push(`\n8. EVALUACIÓN DEL APRENDIZAJE\nIncluye técnicas e instrumentos (rúbrica del producto final con 4 niveles de logro, lista de cotejo, registro anecdótico...), momentos de la evaluación y relación con los criterios.`);
+ if($('evalModo').value==='manual'){L.push(`\n9. EVALUACIÓN DE LA PRÁCTICA DOCENTE`);EVAL.forEach((e,i)=>L.push(`- ${e}: ${v('ev'+i)||'[propónlo tú]'}`))}
+ else L.push(`\n9. EVALUACIÓN DE LA PRÁCTICA DOCENTE\nPropón indicadores sobre: ${EVAL.join('; ').toLowerCase()}.`);
+ if(v('extra'))L.push(`\nINDICACIONES ADICIONALES\n${v('extra')}`);
+ L.push(`\nFORMATO DE SALIDA: documento estructurado con los apartados numerados anteriores, tablas donde ayuden a la claridad, en español y con lenguaje inclusivo. Si falta algún dato, haz una propuesta razonable e indícalo.`);
+ const p=L.join('\n');$('salida').value=p;return p}
+const prompt=()=>v('salida')||generar();
+async function copiar(){const p=prompt();if(!p)return false;try{await navigator.clipboard.writeText(p)}catch(e){$('salida').select();document.execCommand('copy')}toast('Prompt copiado');return true}
+$('btnGen').onclick=()=>{if(generar())toast('Prompt generado')};
+$('btnCopy').onclick=copiar;
+$('btnGemini').onclick=async()=>{if(await copiar()){window.open('https://gemini.google.com/app','_blank');toast('Pega el prompt en Gemini (Ctrl+V)')}};
+$('btnChatGPT').onclick=async()=>{const p=prompt();if(p){await copiar();window.open('https://chatgpt.com/?q='+encodeURIComponent(p),'_blank')}};
+$('btnClaude').onclick=async()=>{const p=prompt();if(p){await copiar();window.open('https://claude.ai/new?q='+encodeURIComponent(p),'_blank')}};
+$('btnTxt').onclick=()=>{const p=prompt();if(p)descargar('prompt-sda.txt',p,'text/plain')};
+
+/* ---------- Guardar / cargar formulario ---------- */
+const CAMPOS=()=>[...document.querySelectorAll('main select, main input[type=text], main input[type=number], main textarea')].filter(e=>e.id&&e.id!=='salida');
+function estado(){const o={};CAMPOS().forEach(e=>o[e.id]=e.value);o.contCheck=$('contCheck').checked;o.alumnos=alumnos();return o}
+function aplicar(o){CAMPOS().forEach(e=>{if(o[e.id]!==undefined)e.value=o[e.id]});$('contCheck').checked=!!o.contCheck;$('contCheck').onchange();$('alumnosNEAE').innerHTML='';(o.alumnos||[]).forEach(a=>addAlumno(a.tipo,a.ini,a.nec));bindToggles();pintarCur()}
+$('btnGuardar').onclick=()=>descargar('situacion-aprendizaje.json',JSON.stringify(estado(),null,2),'application/json');
+$('btnCargar').onclick=()=>$('fileForm').click();
+$('fileForm').onchange=e=>leer(e,d=>{aplicar(d);toast('Formulario cargado')});
+$('btnLimpiar').onclick=()=>{if(confirm('¿Vaciar el formulario?')){store.set('sda_form',null);location.reload()}};
+document.querySelector('main').addEventListener('input',()=>store.set('sda_form',estado()));
+document.querySelector('main').addEventListener('change',()=>store.set('sda_form',estado()));
+const prev=store.get('sda_form',null);if(prev)aplicar(prev);else pintarCur();
+
+function descargar(n,t,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m+';charset=utf-8'}));a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function leer(e,cb){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{cb(JSON.parse(r.result))}catch(x){toast('Archivo no válido')}};r.readAsText(f);e.target.value=''}
+
+</script>
+</body>
+</html>
