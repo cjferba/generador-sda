@@ -10,20 +10,18 @@ Una pestaña por etapa, cada una con sus cursos, materias y normativa andaluza d
 
 | Pestaña | Cursos y opciones |
 |---|---|
-| Infantil | 0 a 5 años (primer y segundo ciclo) |
+| Infantil | Primer ciclo (0-1 años y 2-3 años) y segundo ciclo (3, 4 y 5 años) |
 | Primaria | 1.º a 6.º; las áreas cambian según el curso |
-| ESO | 1.º a 4.º, con optativas propias de Andalucía y ámbitos del Programa de Diversificación Curricular |
-| Bachillerato | 1.º y 2.º, por modalidad; ordinario o para personas adultas (presencial, semipresencial y a distancia) |
-| Personas adultas (ESA) | Nivel I y Nivel II, presencial, semipresencial o a distancia |
-| FP Grado Básico | 1.º y 2.º, los 28 títulos, en grupo ordinario, grupo específico (E) o educación especial (EEE) |
+| Secundaria (ESO) | 1.º a 4.º, con optativas propias de Andalucía y ámbitos del Programa de Diversificación Curricular |
+| Bachillerato | 1.º y 2.º, por modalidad |
 
-La normativa de cada pestaña es un **punto de partida**: compruébala en el BOE/BOJA. En personas adultas y FP Grado Básico hay que añadir la orden andaluza vigente y, en FP, el real decreto del título.
+La normativa de cada pestaña es un **punto de partida**: compruébala en el BOE/BOJA.
 
 ## Cómo funciona
 
 - Es una sola página, sin servidor. **No usa IA propia ni envía datos**: solo monta el texto del prompt en tu navegador.
 - El formulario y tu **banco curricular** se guardan en el almacenamiento local del navegador. Puedes exportarlos como `.json` y cargarlos más tarde.
-- En el banco curricular pegas los textos oficiales (competencias específicas, criterios de evaluación y saberes básicos; en FP, resultados de aprendizaje, criterios y contenidos), una línea por elemento con el formato `CÓDIGO | descripción`. Así la IA usa los elementos reales y **no se los inventa**.
+- En el banco curricular pegas los textos oficiales (competencias específicas, criterios de evaluación y saberes básicos), una línea por elemento con el formato `CÓDIGO | descripción`. Así la IA usa los elementos reales y **no se los inventa**.
 - Los botones de ChatGPT y Claude abren el asistente con el prompt en la dirección web; Gemini se abre vacío y el prompt queda copiado para pegarlo.
 
 ## Ejemplo
@@ -46,4 +44,4 @@ La página se genera desde el material del curso y se publica **cifrada** (AES-G
 
 Material de la microcredencial *Competencias para el futuro docente: Séneca, Herramientas de IA y Situaciones de Aprendizaje* (Universidad de Granada, 26/MI/173), Módulo II «IA Generativa en Educación» y Módulo III «Situaciones de Aprendizaje». Autor: Dr. Carlos Fernández Basso.
 
-Basada en el generador de Situaciones de Aprendizaje de la demo *danicruz.22web.org*, adaptada al diseño del módulo y ampliada a todas las etapas.
+Basada en el generador de Situaciones de Aprendizaje de la demo *danicruz.22web.org*, adaptada al diseño del módulo y ampliada a Infantil, Primaria, Secundaria y Bachillerato.

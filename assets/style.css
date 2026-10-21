@@ -492,3 +492,5 @@ main.sda .etapas button {
 main.sda .etapas button:hover { color: var(--teal); }
 main.sda .etapas button[aria-selected="true"] { color: var(--navy-ink); background: #fff; border-bottom-color: var(--teal); }
 main.sda .etapas button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+main.sda .etapas.grandes { margin-top: 0.8rem; }
+main.sda .etapas.grandes button { font-size: 1.02rem; padding: 0.75rem 1.2rem; }
