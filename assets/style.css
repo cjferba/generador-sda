@@ -482,3 +482,13 @@ div.moderno footer { color: var(--muted); }
 div.moderno main.doc pre code { background: none; color: inherit; border-radius: 0; }
 div.moderno main.doc .grid .card h3 { margin: 0.2rem 0 0; color: var(--navy-ink); font-size: 1.15rem; }
 div.moderno main.doc .grid .card .pill { margin-top: 0.4rem; }
+/* Pestañas de etapa del generador de SdA */
+main.sda .etapas { display: flex; gap: 0.25rem; margin: 0.6rem 0 0.4rem; border-bottom: 2px solid #d7dbe6; overflow-x: auto; scrollbar-width: thin; }
+main.sda .etapas button {
+  flex: 0 0 auto; border: 0; background: transparent; padding: 0.6rem 0.95rem; margin-bottom: -2px;
+  font: inherit; font-weight: 600; font-size: 0.9rem; color: var(--muted); cursor: pointer; white-space: nowrap;
+  border-bottom: 3px solid transparent; border-radius: 8px 8px 0 0;
+}
+main.sda .etapas button:hover { color: var(--teal); }
+main.sda .etapas button[aria-selected="true"] { color: var(--navy-ink); background: #fff; border-bottom-color: var(--teal); }
+main.sda .etapas button:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
